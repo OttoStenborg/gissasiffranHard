@@ -31,7 +31,7 @@ public class GissaTalet {
                 loopMeny = true;
 
             }
-            System.out.println(randomTal);
+            //System.out.println(randomTal); // Endast för test och felsökning
             while (true) {
                 System.out.println("Ange en siffra eller skriv 1000 för att avsluta");
                 int gissning;
