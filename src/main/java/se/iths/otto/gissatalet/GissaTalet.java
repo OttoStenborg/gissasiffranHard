@@ -50,7 +50,11 @@ public class GissaTalet {
                     System.exit(0);
                 }
                 if (val.equalsIgnoreCase("lätt") && easyMode){
-                    if (gissning == randomTal) {
+                    if (gissning > maxTal) {
+                        System.out.printf("för högt tal! Svara inom intevall. Intervallet är mellan 0 och %d", maxTal);
+                        System.out.println();
+                    }
+                    else if (gissning == randomTal) {
                         antalGissningar++;
                         System.out.printf("Grattis du vann! på %d antal gissningar", antalGissningar);
                         break;
