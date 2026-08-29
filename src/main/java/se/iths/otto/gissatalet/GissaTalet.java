@@ -7,6 +7,7 @@ public class GissaTalet {
     static void main() {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
+        boolean easyMode = false;
         int antalGissningar = 0;
         int randomTal = 0;
         int maxTal = 0;
@@ -15,6 +16,7 @@ public class GissaTalet {
             System.out.println("Välkommen till Ottos gissanummer spel, ange vilken svårighetsgrad (lätt, medium och svår):");
             String val = sc.nextLine();
             if (val.equalsIgnoreCase("lätt")) {
+                easyMode = true;
                 randomTal = random.nextInt(10);
                 maxTal = 10;
                 loopMeny = false;
@@ -31,7 +33,7 @@ public class GissaTalet {
                 loopMeny = true;
 
             }
-            //System.out.println(randomTal); // Endast för test och felsökning
+            //System.out.println(randomTal); //!!Endast för test och felsökning!!
             while (true) {
                 System.out.println("Ange en siffra eller skriv 1000 för att avsluta");
                 int gissning;
@@ -47,20 +49,35 @@ public class GissaTalet {
                     System.out.println("Programmet avslutas.");
                     System.exit(0);
                 }
-
-                int diff = Math.abs(gissning - randomTal);
-                if (gissning > maxTal) {
-                    System.out.printf("för högt tal! Svara inom intevall. Intervallet är mellan 0 och %d", maxTal);
-                } else if (gissning == randomTal) {
-                    System.out.printf("Grattis du gissade rätt! på %d antal gissningar", antalGissningar);
-                    break;
-                } else if (gissning < randomTal) {
-                    System.out.println(diff <= 7 ? "för lågt men nära, prova igen" : "för lågt, prova igen");
-                    antalGissningar++;
-                } else {
-                    System.out.println(diff <= 7 ? "för högt men nära, prova igen" : "för högt prova igen");
-                    antalGissningar++;
+                if (val.equalsIgnoreCase("lätt") && easyMode){
+                    if (gissning == randomTal) {
+                        antalGissningar++;
+                        System.out.printf("Grattis du vann! på %d antal gissningar", antalGissningar);
+                        break;
+                    }
+                    else {
+                        System.out.println(gissning > randomTal ? "För högt" : "För lågt!");
+                        antalGissningar++;
+                    }
                 }
+                if (!easyMode) {
+                    int diff = Math.abs(gissning - randomTal);
+                    if (gissning > maxTal) {
+                        System.out.printf("för högt tal! Svara inom intevall. Intervallet är mellan 0 och %d", maxTal);
+                    } else if (gissning == randomTal) {
+                        antalGissningar++;
+                        System.out.printf("Grattis du gissade rätt! på %d antal gissningar", antalGissningar);
+                        break;
+                    } else if (gissning < randomTal) {
+                        System.out.println(diff <= 7 ? "för lågt men nära, prova igen" : "för lågt, prova igen");
+                        antalGissningar++;
+                    } else {
+                        System.out.println(diff <= 7 ? "för högt men nära, prova igen" : "för högt prova igen");
+                        antalGissningar++;
+                    }
+                }
+
+
             }
         }
     }
